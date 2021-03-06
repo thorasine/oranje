@@ -2,7 +2,7 @@ html,
 body {
     height: 100%;
     width: 100%;
-    background-color: #3c5242;
+    background-color: #f5f5f5;
 }
 .header{
     height: 10%;
@@ -10,6 +10,10 @@ body {
 
 .i-cant-name-this-container{
     width: 100%;
-    height: 90%;
+    height: 91%;
     background-color: #f5f5f5;
+}
+
+.list-group{
+    width: 25%;
 }

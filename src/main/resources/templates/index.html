@@ -3,30 +3,44 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
+    <script src="/webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <link th:href="@{/css/style.css}" rel="stylesheet" crossorigin="anonymous" type="text/css"/>
+    <script src="/js/main.js"></script>
     <title>Main page</title>
 </head>
 <body>
 
-<div class="header d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-dark shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal text-white">Home</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-white" href="" sec:authentication="name"></a>
-    </nav>
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a id="nav-home" class="nav-link" href="#">Home</a>
+        </li>
+        <div sec:authorize="hasAnyAuthority('USER', 'ADMIN')">
+            <li class="nav-item">
+                <a id="nav-usercentral" class="nav-link" href="#">User central</a>
+            </li>
+        </div>
+        <div sec:authorize="hasAnyAuthority('EDITOR', 'ADMIN')">
+            <li class="nav-item">
+                <a id="nav-edit" class="nav-link" href="#">Edit</a>
+            </li>
+        </div>
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+            <li class="nav-item">
+                <a id="nav-admin" class="nav-link" href="#">Admin</a>
+            </li>
+        </div>
+    </ul>
+    <span class="text-white pr-4" sec:authentication="name"></span>
     <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-    <input type="submit" value="Logout" />
+        <input type="submit" value="Logout" />
     </form>
     <a class="btn btn-danger" href="javascript: document.logoutForm.submit()">Logout</a>
-</div>
+</nav>
+<div id="container" class="i-cant-name-this-container">
 
-<div class="i-cant-name-this-container">
-    <div th:replace="home :: home">
-    </div>
 </div>
 </body>
 </html>

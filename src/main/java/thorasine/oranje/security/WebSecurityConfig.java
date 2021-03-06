@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import thorasine.oranje.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -39,13 +39,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers( "/css/**", "/img/**").permitAll()
+                .antMatchers( "/css/**", "/img/**", "/js/**", "/webjars/**").permitAll()
                 .antMatchers("/").authenticated()
                 .antMatchers("/login").permitAll()
-                //.antMatchers("/edit/**").hasAnyAuthority("ADMIN", "EDITOR")
-                .antMatchers("/admin").hasAnyAuthority("ADMIN")
+                .antMatchers("/usercentral").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/edit").hasAnyAuthority("EDITOR", "ADMIN")
-                .antMatchers("/base").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/admin").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")

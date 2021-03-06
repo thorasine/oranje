@@ -22,9 +22,8 @@ public class ManualSetup {
 
     @PostConstruct
     private void init() {
-        userRepo.deleteAll();
-        roleRepo.deleteAll();
-
+        //userRepo.deleteAll();
+        //roleRepo.deleteAll();
         List<Role> roles = roleRepo.findAll();
         if (roles.size() == 0) {
             addRoles();

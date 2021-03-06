@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class User implements Serializable {
     private String username;
 
     @NotNull
-    @Size(min = 4)
+    @Size(min = 5)
     @JsonIgnore
     private String password;
 
@@ -32,6 +33,9 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLogin;
 
     public User() {
     }
@@ -58,6 +62,10 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,5 +80,9 @@ public class User implements Serializable {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
     }
 }
