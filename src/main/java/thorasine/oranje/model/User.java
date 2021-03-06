@@ -1,5 +1,6 @@
 package thorasine.oranje.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class User implements Serializable {
 
     @NotNull
     @Size(min = 4)
+    @JsonIgnore
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

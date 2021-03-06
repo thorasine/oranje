@@ -33,18 +33,18 @@ public class ManualSetup {
     }
 
     private void addRoles() {
-        Role role1 = new Role("admin");
-        Role role2 = new Role("editor");
-        Role role3 = new Role("user");
+        Role role1 = new Role("ADMIN");
+        Role role2 = new Role("EDITOR");
+        Role role3 = new Role("USER");
         roleRepo.save(role1);
         roleRepo.save(role2);
         roleRepo.save(role3);
     }
 
     private void addUsers() {
-        Role admin = roleRepo.findByName("admin");
-        Role editor = roleRepo.findByName("editor");
-        Role role_user = roleRepo.findByName("user");
+        Role admin = roleRepo.findByName("ADMIN");
+        Role editor = roleRepo.findByName("EDITOR");
+        Role role_user = roleRepo.findByName("USER");
         User user0 = new User("Admin", new BCryptPasswordEncoder().encode("admin"), admin);
         User user1 = new User("User 1", new BCryptPasswordEncoder().encode("user1"), editor);
         user1.addRole(role_user);
