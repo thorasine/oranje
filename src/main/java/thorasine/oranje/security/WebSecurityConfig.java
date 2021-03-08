@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
+        //auth.inMemoryAuthentication().passwordEncoder().withObjectPostProcessor()
     }
 
     @Override

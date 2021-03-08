@@ -11,7 +11,7 @@ import thorasine.oranje.repository.UserRepository;
 import java.util.Date;
 
 @Service
-public class UserLoginDateService implements ApplicationListener<AuthenticationSuccessEvent> {
+public class UserLoginSuccessService implements ApplicationListener<AuthenticationSuccessEvent> {
 
     @Autowired
     UserRepository userRepository;
