@@ -2,8 +2,9 @@
 <head>
     <title>Please Sign In</title>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
     <script src="/webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
     <link th:href="@{/css/login.css}" rel="stylesheet" crossorigin="anonymous" type="text/css"/>
 </head>
 <body class="text-center">
@@ -11,8 +12,11 @@
     <form sec:authorize="!isAuthenticated()" class="form-signin" th:action="@{/login}" method="post">
         <img class="mb-4" th:src="@{/img/orange.png}" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        <div th:if="${(param.error != null) and (param.error[0] == '1')}" class="alert alert-danger" role="alert">
             <span>Invalid username and password.</span>
+        </div>
+        <div th:if="${(param.error != null) and (param.error[0] == '2')}" class="alert alert-danger" role="alert">
+            <span>Invalid captcha.</span>
         </div>
         <div th:if="${param.logout}" class="alert alert-success" >
             <span>You have been logged out.</span>
@@ -21,16 +25,14 @@
         <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="g-recaptcha mb-2" th:attr="data-sitekey=${@captchaSettings.getSite()}"></div>
+        <span id="captchaError" class="alert alert-danger" style="display:none"></span>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
     <div class="form-signin signout" sec:authorize="isAuthenticated()">
         <h1 class="h3 mb-3 font-weight-normal">You are already signed in.</h1>
         <form class="btn_container">
             <div class="form-group text-center">
-                <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-                    <input type="submit" value="Logout" />
-                </form>
-                <a class="btn btn-danger" href="javascript: document.logoutForm.submit()">Logout</a>
                 <a class="btn btn-primary" href="/">Go back</a>
             </div>
         </form>

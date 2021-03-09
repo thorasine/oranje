@@ -12,3 +12,8 @@ spring:
   session:
     jdbc:
       initialize-schema: always
+google:
+  recaptcha:
+    key:
+      site: 6LeDaHUaAAAAAPtUsxhTwt4TXVzF1IN7KSodavV0
+      secret: 6LeDaHUaAAAAAKN92JUvpu43pUzA1R_h6Ds3e40g

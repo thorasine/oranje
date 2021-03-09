@@ -1,7 +1,10 @@
 package thorasine.oranje.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.*;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
@@ -34,20 +37,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
-        //auth.inMemoryAuthentication().passwordEncoder().withObjectPostProcessor()
     }
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Autowired
+    public CustomBeforeAuthenticationFilter customBeforeAuthenticationFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers( "/css/**", "/img/**", "/js/**", "/webjars/**").permitAll()
                 .antMatchers("/").authenticated()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login/**").permitAll()
                 .antMatchers("/usercentral").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/edit").hasAnyAuthority("EDITOR", "ADMIN")
                 .antMatchers("/admin").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
+                .addFilterBefore(customBeforeAuthenticationFilter, CustomBeforeAuthenticationFilter.class)
                 .formLogin().loginPage("/login")
                 .and()
                 .logout().logoutUrl("/logout").permitAll()
