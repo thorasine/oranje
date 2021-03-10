@@ -1,5 +1,9 @@
 $(function(){
     loadPage('/home');
+    $("login-form").submit(function(event) {
+        console.log("asd");
+        event.preventDefault();
+    });
     $("#nav-home").click(function () {
         loadPage('/home');
     });

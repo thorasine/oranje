@@ -3,7 +3,6 @@ package thorasine.oranje.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import thorasine.oranje.captcha.exception.ReCaptchaBlockedException;
 import thorasine.oranje.captcha.exception.ReCaptchaInvalidException;

@@ -1,15 +1,16 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Please Sign In</title>
+    <title>Sign In</title>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script th:if="${(requireCaptcha != null) and (requireCaptcha)}" src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="/js/login.js"></script>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
     <link th:href="@{/css/login.css}" rel="stylesheet" crossorigin="anonymous" type="text/css"/>
 </head>
 <body class="text-center">
 <div class="container">
-    <form sec:authorize="!isAuthenticated()" class="form-signin" th:action="@{/login}" method="post">
+    <form id="login-form" sec:authorize="!isAuthenticated()" class="form-signin" th:action="@{/login}" method="post">
         <img class="mb-4" th:src="@{/img/orange.png}" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <div th:if="${(param.error != null) and (param.error[0] == '1')}" class="alert alert-danger" role="alert">
@@ -24,6 +25,9 @@
         <div th:if="${param.logout}" class="alert alert-success" >
             <span>You have been logged out.</span>
         </div>
+        <div id="captcha-error" class="alert alert-danger" role="alert" style="display:none">
+            <span>Please fill out the captcha.</span>
+        </div>
         <label for="inputUsername" class="sr-only">Username</label>
         <input name="username" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
@@ -31,9 +35,8 @@
 
         <div th:if="${(requireCaptcha != null) and (requireCaptcha)}">
             <div class="g-recaptcha mb-2" th:attr="data-sitekey=${@captchaSettings.getSite()}"></div>
-            <span id="captchaError" class="alert alert-danger" style="display:none"></span>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">Sign in</button>
     </form>
     <div class="form-signin signout" sec:authorize="isAuthenticated()">
         <h1 class="h3 mb-3 font-weight-normal">You are already signed in.</h1>
