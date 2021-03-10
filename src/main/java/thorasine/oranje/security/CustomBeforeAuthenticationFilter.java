@@ -25,15 +25,20 @@ public class CustomBeforeAuthenticationFilter extends UsernamePasswordAuthentica
     @Autowired
     private ICaptchaService captchaService;
 
+    @Autowired
+    LoginAttemptService loginAttemptService;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
-        String gReCaptchaResponse = request.getParameter("g-recaptcha-response");
-        try {
-            captchaService.processResponse(gReCaptchaResponse);
-        } catch (ReCaptchaUnavailableException e) {
-            // In case of Google downtime we just skip the captcha
-            LOGGER.debug("Google API is unavailable: " + e.getMessage());
+        if(loginAttemptService.captchaRequired(request.getRemoteAddr())){
+            String gReCaptchaResponse = request.getParameter("g-recaptcha-response");
+            try {
+                captchaService.processResponse(gReCaptchaResponse);
+            } catch (ReCaptchaUnavailableException e) {
+                // In case of Google downtime we just skip the captcha
+                LOGGER.debug("Google API is unavailable: " + e.getMessage());
+            }
         }
         return super.attemptAuthentication(request, response);
     }

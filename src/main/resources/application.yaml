@@ -18,6 +18,12 @@ google:
     secret: 6LeDaHUaAAAAAKN92JUvpu43pUzA1R_h6Ds3e40g
     # Empty captcha does not count for failure
     max-failures-before-block: 4
-    # For how long we block the user (IP) from retrying
-    hours-to-wait-in-block: 2
+    # For how many hours we block the user (IP) from retrying
+    hours-to-drop-block: 4
+custom:
+  login:
+    # How many times the user (IP) can fail the login before requiring captcha
+    max-attempts-before-captcha: 3
+    # For how many hours we require captcha verification from the user (IP)
+    hours-to-drop-captcha: 1
 

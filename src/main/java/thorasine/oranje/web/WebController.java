@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import thorasine.oranje.persistence.repository.UserRepository;
+import thorasine.oranje.security.LoginAttemptService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Date;
 
@@ -15,13 +17,19 @@ public class WebController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    LoginAttemptService loginAttemptService;
+
     @GetMapping("/")
     public String indexPage() {
         return "index";
     }
 
     @GetMapping("/login")
-    public String loginPage(){
+    public String loginPage(HttpServletRequest request, Model model){
+        if(loginAttemptService.captchaRequired(request.getRemoteAddr())){
+            model.addAttribute("requireCaptcha", true);
+        }
         return "login";
     }
 

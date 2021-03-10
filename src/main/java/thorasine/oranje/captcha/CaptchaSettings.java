@@ -10,7 +10,7 @@ public class CaptchaSettings {
     private String site;
     private String secret;
     private int maxFailuresBeforeBlock;
-    private int hoursToWaitInBlock;
+    private int hoursToDropBlock;
 
     public void setSite(String site) {
         this.site = site;
@@ -24,8 +24,8 @@ public class CaptchaSettings {
         this.maxFailuresBeforeBlock = maxFailuresBeforeBlock;
     }
 
-    public void setHoursToWaitInBlock(int hoursToWaitInBlock) {
-        this.hoursToWaitInBlock = hoursToWaitInBlock;
+    public void setHoursToDropBlock(int hoursToDropBlock) {
+        this.hoursToDropBlock = hoursToDropBlock;
     }
 
     public String getSite() {
@@ -40,7 +40,7 @@ public class CaptchaSettings {
         return maxFailuresBeforeBlock;
     }
 
-    public int getHoursToWaitInBlock() {
-        return hoursToWaitInBlock;
+    public int getHoursToDropBlock() {
+        return hoursToDropBlock;
     }
 }

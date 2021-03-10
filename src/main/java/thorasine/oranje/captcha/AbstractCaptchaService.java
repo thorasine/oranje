@@ -50,7 +50,6 @@ public abstract class AbstractCaptchaService implements ICaptchaService {
         }
 
         if (!responseSanityCheck(response)) {
-            reCaptchaAttemptService.reCaptchaFailed(getClientIP());
             throw new ReCaptchaInvalidException("Response contains invalid characters");
         }
     }

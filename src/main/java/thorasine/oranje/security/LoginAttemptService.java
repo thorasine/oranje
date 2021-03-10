@@ -1,4 +1,4 @@
-package thorasine.oranje.captcha;
+package thorasine.oranje.security;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -9,42 +9,41 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
-@Service("reCaptchaAttemptService")
-public class ReCaptchaAttemptService {
+@Service
+public class LoginAttemptService {
 
     @Autowired
-    private CaptchaSettings captchaSettings;
+    LoginSettings loginSettings;
 
     private int MAX_ATTEMPTS;
     private int EXPIRE_TIME;
     private LoadingCache<String, Integer> attemptsCache;
 
     @PostConstruct
-    private void init() {
-        MAX_ATTEMPTS = captchaSettings.getMaxFailuresBeforeBlock();
-        EXPIRE_TIME = captchaSettings.getHoursToDropBlock();
+    private void init(){
+        MAX_ATTEMPTS = loginSettings.getMaxAttemptsBeforeCaptcha();
+        EXPIRE_TIME = loginSettings.getHoursToDropCaptcha();
         attemptsCache = CacheBuilder
                 .newBuilder()
                 .expireAfterWrite(EXPIRE_TIME, TimeUnit.HOURS)
                 .build(new CacheLoader<String, Integer>() {
-                    @Override
-                    public Integer load(final String key) {
-                        return 0;
-                    }
-                });
+            public Integer load(String key) {
+                return 0;
+            }
+        });
     }
 
-    public void reCaptchaSucceeded(final String key) {
+    public void loginSucceeded(String key) {
         attemptsCache.invalidate(key);
     }
 
-    public void reCaptchaFailed(final String key) {
+    public void loginFailed(String key) {
         int attempts = attemptsCache.getUnchecked(key);
         attempts++;
         attemptsCache.put(key, attempts);
     }
 
-    public boolean isBlocked(final String key) {
+    public boolean captchaRequired(final String key) {
         return attemptsCache.getUnchecked(key) >= MAX_ATTEMPTS;
     }
 }
