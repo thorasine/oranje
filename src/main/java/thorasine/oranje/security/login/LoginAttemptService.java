@@ -1,4 +1,4 @@
-package thorasine.oranje.security;
+package thorasine.oranje.security.login;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

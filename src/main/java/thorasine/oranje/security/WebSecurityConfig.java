@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import thorasine.oranje.service.MyUserDetailsService;
+import thorasine.oranje.security.login.CustomBeforeAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity

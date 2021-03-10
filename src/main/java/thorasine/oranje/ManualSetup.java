@@ -11,6 +11,11 @@ import thorasine.oranje.persistence.repository.UserRepository;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+/**
+ * This class is only for demonstrating purposes.
+ *
+ * @author Krisztian Zaja
+ */
 @Component
 public class ManualSetup {
 
@@ -22,8 +27,6 @@ public class ManualSetup {
 
     @PostConstruct
     private void init() {
-        //userRepo.deleteAll();
-        //roleRepo.deleteAll();
         List<Role> roles = roleRepo.findAll();
         if (roles.size() == 0) {
             addRoles();

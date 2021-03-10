@@ -1,4 +1,4 @@
-package thorasine.oranje.service;
+package thorasine.oranje.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;

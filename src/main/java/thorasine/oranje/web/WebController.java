@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import thorasine.oranje.persistence.repository.UserRepository;
-import thorasine.oranje.security.LoginAttemptService;
+import thorasine.oranje.security.login.LoginAttemptService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -34,7 +34,7 @@ public class WebController {
     }
 
     @GetMapping("/info")
-    public String homePage(Model model, Principal principal){
+    public String infoPage(Model model, Principal principal){
         Date lastLogin = userRepository.findByUsername(principal.getName()).getLastLogin();
         model.addAttribute("lastLogin", lastLogin);
         return "info";

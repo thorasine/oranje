@@ -1,4 +1,4 @@
-package thorasine.oranje.security;
+package thorasine.oranje.security.login;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

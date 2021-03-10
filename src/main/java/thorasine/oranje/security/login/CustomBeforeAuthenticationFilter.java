@@ -1,4 +1,4 @@
-package thorasine.oranje.security;
+package thorasine.oranje.security.login;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,21 +28,6 @@ public class CustomBeforeAuthenticationFilter extends UsernamePasswordAuthentica
     @Autowired
     LoginAttemptService loginAttemptService;
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
-        if(loginAttemptService.captchaRequired(request.getRemoteAddr())){
-            String gReCaptchaResponse = request.getParameter("g-recaptcha-response");
-            try {
-                captchaService.processResponse(gReCaptchaResponse);
-            } catch (ReCaptchaUnavailableException e) {
-                // In case of Google downtime we just skip the captcha
-                LOGGER.debug("Google API is unavailable: " + e.getMessage());
-            }
-        }
-        return super.attemptAuthentication(request, response);
-    }
-
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
@@ -58,5 +43,20 @@ public class CustomBeforeAuthenticationFilter extends UsernamePasswordAuthentica
     @Override
     public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
         super.setAuthenticationSuccessHandler(successHandler);
+    }
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
+        if (loginAttemptService.captchaRequired(request.getRemoteAddr())) {
+            String gReCaptchaResponse = request.getParameter("g-recaptcha-response");
+            try {
+                captchaService.processResponse(gReCaptchaResponse);
+            } catch (ReCaptchaUnavailableException e) {
+                // In case of Google downtime we just skip the captcha
+                LOGGER.debug("Google API is unavailable: " + e.getMessage() + " " + e.getCause());
+            }
+        }
+        return super.attemptAuthentication(request, response);
     }
 }

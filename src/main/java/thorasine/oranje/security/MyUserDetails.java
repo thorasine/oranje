@@ -1,4 +1,4 @@
-package thorasine.oranje.service;
+package thorasine.oranje.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

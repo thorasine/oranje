@@ -1,4 +1,4 @@
-package thorasine.oranje.security;
+package thorasine.oranje.security.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
@@ -22,10 +22,9 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
         loginAttemptService.loginFailed(request.getRemoteAddr());
-
         if (exception instanceof ReCaptchaInvalidException) {
             getRedirectStrategy().sendRedirect(request, response, "/login?error=2");
-        } else if (exception instanceof ReCaptchaBlockedException){
+        } else if (exception instanceof ReCaptchaBlockedException) {
             getRedirectStrategy().sendRedirect(request, response, "/login?error=3");
         } else {
             getRedirectStrategy().sendRedirect(request, response, "/login?error=1");
