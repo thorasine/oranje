@@ -16,9 +16,9 @@ google:
   recaptcha:
     site: 6LeDaHUaAAAAAPtUsxhTwt4TXVzF1IN7KSodavV0
     secret: 6LeDaHUaAAAAAKN92JUvpu43pUzA1R_h6Ds3e40g
-    # Block users (IP address) who failed the captcha test too many times
+    # Block users (IP address) who are deemed not human too many times
     # Empty captcha does not count towards failure
-    max-failures-before-block: 5
+    max-failures-before-block: 4
     # For how many hours we block the user from retrying
     hours-to-drop-block: 4
 custom:
