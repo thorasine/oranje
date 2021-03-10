@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
     <script src="/webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <title>Home page</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" crossorigin="anonymous" type="text/css"/>
+    <title>Info page</title>
 </head>
 <body>
 <div th:fragment="content" class="w-100 h-100 p-3">
-    <h4 class="font-weight-normal mb-3">Home page</h4>
+    <h4 class="font-weight-normal mb-3">Info page</h4>
     <ul class="list-group">
         <li class="list-group-item">Logged in as:
             <span sec:authentication="name"></span>

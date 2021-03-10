@@ -20,17 +20,18 @@ public class LoginAttemptService {
     private LoadingCache<String, Integer> attemptsCache;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         MAX_ATTEMPTS = loginSettings.getMaxAttemptsBeforeCaptcha();
         EXPIRE_TIME = loginSettings.getHoursToDropCaptcha();
         attemptsCache = CacheBuilder
                 .newBuilder()
                 .expireAfterWrite(EXPIRE_TIME, TimeUnit.HOURS)
                 .build(new CacheLoader<String, Integer>() {
-            public Integer load(String key) {
-                return 0;
-            }
-        });
+                    @Override
+                    public Integer load(String key) {
+                        return 0;
+                    }
+                });
     }
 
     public void loginSucceeded(String key) {

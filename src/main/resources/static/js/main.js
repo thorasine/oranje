@@ -1,20 +1,20 @@
 $(function(){
-    loadPage('/home');
+    loadPage('/info');
     $("login-form").submit(function(event) {
         console.log("asd");
         event.preventDefault();
     });
-    $("#nav-home").click(function () {
-        loadPage('/home');
+    $("#nav-info").click(function () {
+        loadPage('/info');
     });
-    $("#nav-usercentral").click(function () {
-        loadPage('/usercentral');
+    $("#nav-user").click(function () {
+        loadPage('/user');
     });
     $("#nav-admin").click(function () {
         loadPage('/admin');
     });
-    $("#nav-edit").click(function () {
-        loadPage('/edit');
+    $("#nav-editor").click(function () {
+        loadPage('/editor');
     });
     $('.navbar-nav li').click(function(){
         $('.navbar-nav li').removeClass('active');

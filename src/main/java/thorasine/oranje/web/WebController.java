@@ -33,25 +33,25 @@ public class WebController {
         return "login";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/info")
     public String homePage(Model model, Principal principal){
         Date lastLogin = userRepository.findByUsername(principal.getName()).getLastLogin();
         model.addAttribute("lastLogin", lastLogin);
-        return "home :: content";
+        return "info";
     }
 
-    @GetMapping("/usercentral")
+    @GetMapping("/user")
     public String usercentralPage(){
-        return "usercentral :: content";
+        return "user";
     }
 
     @GetMapping("/admin")
     public String adminPage(){
-        return "admin :: content";
+        return "admin";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/editor")
     public String editPage(){
-        return "edit :: content";
+        return "editor";
     }
 }
