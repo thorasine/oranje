@@ -3,8 +3,8 @@ package thorasine.oranje.service;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import thorasine.oranje.model.Role;
-import thorasine.oranje.model.User;
+import thorasine.oranje.persistence.model.Role;
+import thorasine.oranje.persistence.model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

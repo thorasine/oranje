@@ -3,10 +3,10 @@ package thorasine.oranje;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import thorasine.oranje.model.Role;
-import thorasine.oranje.model.User;
-import thorasine.oranje.repository.RoleRepository;
-import thorasine.oranje.repository.UserRepository;
+import thorasine.oranje.persistence.model.Role;
+import thorasine.oranje.persistence.model.User;
+import thorasine.oranje.persistence.repository.RoleRepository;
+import thorasine.oranje.persistence.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

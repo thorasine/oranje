@@ -31,9 +31,9 @@ public class CustomBeforeAuthenticationFilter extends UsernamePasswordAuthentica
         try {
             captchaService.processResponse(gReCaptchaResponse);
         } catch (ReCaptchaInvalidException e) {
-            throw new CaptchaFailedAuthenticationException("invalid captcha");
+            throw new CaptchaFailedAuthenticationException("invalidCaptcha");
         } catch (ReCaptchaUnavailableException e) {
-            // In case of Google downtime just skip the captcha
+            // In case of Google downtime we just skip the captcha
             // System.out.println("Google API is down: " + e.getMessage());
         }
         return super.attemptAuthentication(request, response);

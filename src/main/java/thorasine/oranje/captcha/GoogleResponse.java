@@ -44,8 +44,7 @@ public class GoogleResponse {
     }
 
     static enum ErrorCode {
-        MissingSecret, InvalidSecret,
-        MissingResponse, InvalidResponse;
+        MissingSecret, InvalidSecret, MissingResponse, InvalidResponse;
 
         private static Map<String, ErrorCode> errorsMap = new HashMap<String, ErrorCode>(4);
 

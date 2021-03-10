@@ -15,7 +15,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        if (exception.getMessage().equals("invalid captcha")) {
+        if (exception.getMessage().equals("invalidCaptcha")) {
             getRedirectStrategy().sendRedirect(request, response, "/login?error=2");
         } else {
             getRedirectStrategy().sendRedirect(request, response, "/login?error=1");

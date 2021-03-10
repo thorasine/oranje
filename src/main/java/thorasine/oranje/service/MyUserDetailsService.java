@@ -3,8 +3,8 @@ package thorasine.oranje.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
-import thorasine.oranje.model.User;
-import thorasine.oranje.repository.UserRepository;
+import thorasine.oranje.persistence.model.User;
+import thorasine.oranje.persistence.repository.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {

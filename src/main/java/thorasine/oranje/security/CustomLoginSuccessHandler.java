@@ -5,8 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import thorasine.oranje.model.User;
-import thorasine.oranje.repository.UserRepository;
+import thorasine.oranje.persistence.model.User;
+import thorasine.oranje.persistence.repository.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

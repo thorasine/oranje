@@ -1,4 +1,4 @@
-package thorasine.oranje.model;
+package thorasine.oranje.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
