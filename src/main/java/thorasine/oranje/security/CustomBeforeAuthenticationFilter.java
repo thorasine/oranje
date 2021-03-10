@@ -1,5 +1,7 @@
 package thorasine.oranje.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -10,9 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import org.springframework.stereotype.Component;
 import thorasine.oranje.captcha.ICaptchaService;
-import thorasine.oranje.captcha.exception.ReCaptchaInvalidException;
 import thorasine.oranje.captcha.exception.ReCaptchaUnavailableException;
-import thorasine.oranje.security.exception.CaptchaFailedAuthenticationException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,21 +20,20 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class CustomBeforeAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(CustomBeforeAuthenticationFilter.class);
+
     @Autowired
     private ICaptchaService captchaService;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
-        String username = request.getParameter("username");
         String gReCaptchaResponse = request.getParameter("g-recaptcha-response");
         try {
             captchaService.processResponse(gReCaptchaResponse);
-        } catch (ReCaptchaInvalidException e) {
-            throw new CaptchaFailedAuthenticationException("invalidCaptcha");
         } catch (ReCaptchaUnavailableException e) {
             // In case of Google downtime we just skip the captcha
-            // System.out.println("Google API is down: " + e.getMessage());
+            LOGGER.debug("Google API is unavailable: " + e.getMessage());
         }
         return super.attemptAuthentication(request, response);
     }

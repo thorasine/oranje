@@ -1,12 +1,8 @@
 package thorasine.oranje.captcha.exception;
 
-public final class ReCaptchaInvalidException extends RuntimeException {
+import org.springframework.security.core.AuthenticationException;
 
-    private static final long serialVersionUID = 5861310537366287163L;
-
-    public ReCaptchaInvalidException() {
-        super();
-    }
+public final class ReCaptchaInvalidException extends AuthenticationException {
 
     public ReCaptchaInvalidException(final String message, final Throwable cause) {
         super(message, cause);
@@ -14,10 +10,6 @@ public final class ReCaptchaInvalidException extends RuntimeException {
 
     public ReCaptchaInvalidException(final String message) {
         super(message);
-    }
-
-    public ReCaptchaInvalidException(final Throwable cause) {
-        super(cause);
     }
 
 }

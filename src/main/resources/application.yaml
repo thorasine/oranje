@@ -14,6 +14,10 @@ spring:
       initialize-schema: always
 google:
   recaptcha:
-    key:
-      site: 6LeDaHUaAAAAAPtUsxhTwt4TXVzF1IN7KSodavV0
-      secret: 6LeDaHUaAAAAAKN92JUvpu43pUzA1R_h6Ds3e40g
+    site: 6LeDaHUaAAAAAPtUsxhTwt4TXVzF1IN7KSodavV0
+    secret: 6LeDaHUaAAAAAKN92JUvpu43pUzA1R_h6Ds3e40g
+    # Empty captcha does not count for failure
+    max-failures-before-block: 4
+    # For how long we block the user (IP) from retrying
+    hours-to-wait-in-block: 2
+

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestOperations;
+import thorasine.oranje.captcha.exception.ReCaptchaBlockedException;
 import thorasine.oranje.captcha.exception.ReCaptchaInvalidException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,15 +42,15 @@ public abstract class AbstractCaptchaService implements ICaptchaService {
         return captchaSettings.getSecret();
     }
 
-
     protected void securityCheck(final String response) {
         LOGGER.debug("Attempting to validate response {}", response);
 
         if (reCaptchaAttemptService.isBlocked(getClientIP())) {
-            throw new ReCaptchaInvalidException("Client exceeded maximum number of failed attempts");
+            throw new ReCaptchaBlockedException("Client exceeded maximum number of failed attempts");
         }
 
         if (!responseSanityCheck(response)) {
+            reCaptchaAttemptService.reCaptchaFailed(getClientIP());
             throw new ReCaptchaInvalidException("Response contains invalid characters");
         }
     }

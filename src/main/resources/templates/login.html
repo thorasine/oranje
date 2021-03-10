@@ -18,6 +18,9 @@
         <div th:if="${(param.error != null) and (param.error[0] == '2')}" class="alert alert-danger" role="alert">
             <span>Invalid captcha.</span>
         </div>
+        <div th:if="${(param.error != null) and (param.error[0] == '3')}" class="alert alert-danger" role="alert">
+            <span>Too many invalid captcha attempts. Try again later.</span>
+        </div>
         <div th:if="${param.logout}" class="alert alert-success" >
             <span>You have been logged out.</span>
         </div>
