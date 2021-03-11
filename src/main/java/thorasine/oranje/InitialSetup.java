@@ -1,6 +1,5 @@
 package thorasine.oranje;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import thorasine.oranje.persistence.model.Role;
@@ -9,7 +8,7 @@ import thorasine.oranje.persistence.repository.RoleRepository;
 import thorasine.oranje.persistence.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
+import javax.annotation.Resource;
 
 /**
  * This class is only for demonstrating purposes.
@@ -17,18 +16,18 @@ import java.util.List;
  * @author Krisztian Zaja
  */
 @Component
-public class ManualSetup {
+public class InitialSetup {
 
-    @Autowired
+    @Resource
     RoleRepository roleRepo;
 
-    @Autowired
+    @Resource
     UserRepository userRepo;
 
     @PostConstruct
     private void init() {
-        List<Role> roles = roleRepo.findAll();
-        if (roles.size() == 0) {
+        long nRoles = roleRepo.count();
+        if (nRoles == 0) {
             addRoles();
             addUsers();
         }
@@ -43,15 +42,19 @@ public class ManualSetup {
         roleRepo.save(role3);
     }
 
-    private void addUsers() {
+    public void addUsers(){
         Role admin = roleRepo.findByName("ADMIN");
         Role editor = roleRepo.findByName("EDITOR");
         Role role_user = roleRepo.findByName("USER");
-        User user0 = new User("Admin", new BCryptPasswordEncoder().encode("admin"), admin);
-        User user1 = new User("User 1", new BCryptPasswordEncoder().encode("user1"), editor);
+        User user0 = new User("Admin", new BCryptPasswordEncoder().encode("admin"));
+        User user1 = new User("User 1", new BCryptPasswordEncoder().encode("user1"));
+        User user2 = new User("User 2", new BCryptPasswordEncoder().encode("user2"));
+        User user3 = new User("User 3", new BCryptPasswordEncoder().encode("user3"));
+        user0.addRole(admin);
+        user1.addRole(editor);
         user1.addRole(role_user);
-        User user2 = new User("User 2", new BCryptPasswordEncoder().encode("user2"), editor);
-        User user3 = new User("User 3", new BCryptPasswordEncoder().encode("user3"), role_user);
+        user2.addRole(editor);
+        user3.addRole(role_user);
         userRepo.save(user0);
         userRepo.save(user1);
         userRepo.save(user2);

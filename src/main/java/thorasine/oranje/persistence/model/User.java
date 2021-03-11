@@ -24,14 +24,13 @@ public class User implements Serializable {
     private String username;
 
     @NotNull
-    @Size(min = 5)
     @JsonIgnore
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -40,14 +39,23 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(@Size(max = 20) String username, String password, Role role) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.roles.add(role);
+    }
+
+    public User(String username, String password, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public void addRole(Role role){
-        this.roles.add(role);
+        roles.add(role);
+    }
+
+    public void removeRole(Role role){
+        roles.remove(role);
     }
 
     public void setUsername(String username) {
