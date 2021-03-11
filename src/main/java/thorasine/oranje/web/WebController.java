@@ -41,7 +41,7 @@ public class WebController {
     }
 
     @GetMapping("/user")
-    public String usercentralPage(){
+    public String userPage(){
         return "user";
     }
 
@@ -53,5 +53,10 @@ public class WebController {
     @GetMapping("/editor")
     public String editPage(){
         return "editor";
+    }
+
+    @GetMapping("/denied")
+    public String deniedPage(){
+        return "denied";
     }
 }
