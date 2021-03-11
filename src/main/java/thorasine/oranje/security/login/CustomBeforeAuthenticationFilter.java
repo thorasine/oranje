@@ -29,6 +29,7 @@ public class CustomBeforeAuthenticationFilter extends UsernamePasswordAuthentica
     LoginAttemptService loginAttemptService;
 
     @Autowired
+    @Override
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         super.setAuthenticationManager(authenticationManager);
     }

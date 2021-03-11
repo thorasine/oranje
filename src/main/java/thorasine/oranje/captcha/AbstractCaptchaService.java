@@ -1,7 +1,5 @@
 package thorasine.oranje.captcha;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestOperations;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
 public abstract class AbstractCaptchaService implements ICaptchaService {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(AbstractCaptchaService.class);
 
     @Autowired
     protected HttpServletRequest request;
@@ -43,8 +39,6 @@ public abstract class AbstractCaptchaService implements ICaptchaService {
     }
 
     protected void securityCheck(final String response) {
-        LOGGER.debug("Attempting to validate response {}", response);
-
         if (reCaptchaAttemptService.isBlocked(getClientIP())) {
             throw new ReCaptchaBlockedException("Client exceeded maximum number of failed attempts");
         }

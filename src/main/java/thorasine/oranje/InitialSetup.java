@@ -1,5 +1,6 @@
 package thorasine.oranje;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import thorasine.oranje.persistence.model.Role;
@@ -8,7 +9,6 @@ import thorasine.oranje.persistence.repository.RoleRepository;
 import thorasine.oranje.persistence.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * This class is only for demonstrating purposes.
@@ -18,10 +18,10 @@ import javax.annotation.Resource;
 @Component
 public class InitialSetup {
 
-    @Resource
+    @Autowired
     RoleRepository roleRepo;
 
-    @Resource
+    @Autowired
     UserRepository userRepo;
 
     @PostConstruct
