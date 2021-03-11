@@ -4,7 +4,8 @@ Here you can find my solution for the test.
 
 ## Build
 
-You can choose between Docker or the in-memory database profile. The site operates on http://localhost:8080.
+You can choose between Docker or the in-memory database profile. The site operates on http://localhost:8080.  
+Make sure that you've entered the oranje folder after you've cloned the project.
 
 ## With Docker
 The app requires a MySQL server which is included in the docker compose. 
@@ -25,7 +26,7 @@ docker-compose up -d
 After a minute or so the site will up.  
 
 ## With in-memory database
-Just run the following Maven command from the root folder:
+Just run the following Maven command:
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=memorydb
 ```
@@ -48,6 +49,8 @@ Username | Password
 
 # Notes
 
+Login and reCaptcha configuration can be customized in the [application.yml](https://github.com/thorasine/oranje/blob/master/src/main/resources/application.yaml).
+
 ## Technical Info
 The back end is built on **Java 15** with **Spring Boot 2.5.0** in **IntelliJ IDEA**. 
 Persistence is handled by **JPA** and **Hibernate** in a **MySQL** database.
@@ -60,9 +63,7 @@ The captcha verification is handled by Google's **reCaptcha** and is based on a 
 The captcha requirement are tied to the **user's IP address** and failed login attempts. It will not lift after a successful sign in, because that would be abusable, rather after a certain time has passed.  
 If the captcha result indicates the user being a robot a certain amount of times, it will block the individual from logging in for a given time.  
 
----
 Naturally the IP address is not a 100% certain way to identify users, since it is possible to change or hide it. In a real-world project one might want to add other identifiers simultaneously. On top of that, one could implement a global mandatory captcha if the percentage of all unsuccessful logins compared to the total have surpassed a certain threshold.  
-
 However I think for this small homework project these would have been an overkill.
 
 
